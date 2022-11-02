@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { BlendingEquation, Box2, SpotLight } from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 const loader = new THREE.TextureLoader()
 const ground = loader.load('textures/ground.jpg')
@@ -28,7 +29,7 @@ const light = new THREE.PointLight( 0xffffff, 0.01, 40 );
 light.position.set( 0, 0, 30 ); //default; light shining from top
 light.rotateY(-90);
 light.castShadow = true; // default false
-scene.add( light );
+//scene.add( light );
 
 //Set up shadow properties for the light
 light.shadow.mapSize.width = 512; // default
@@ -38,7 +39,7 @@ light.shadow.camera.far = 500; // default
 
 
 //Create a SpotLight and turn on shadows for the light
-const spotlight = new THREE.SpotLight( 0xffffff, 0.8);
+const spotlight = new THREE.SpotLight( 0xffffff, 0.5);
 spotlight.position.set( -32, -32, 20 );
 spotlight.castShadow = true; // default false
 
@@ -53,7 +54,7 @@ spotlight.shadow.camera.fov = 20;
 scene.add( spotlight );
 
 //Create a SpotLight and turn on shadows for the light
-const spotlight2 = new THREE.SpotLight( 0xffffff, 0.8);
+const spotlight2 = new THREE.SpotLight( 0xffffff, 0.5);
 spotlight2.position.set( 32, -32, 20 );
 spotlight2.castShadow = true; // default false
 
@@ -64,10 +65,10 @@ spotlight2.shadow.mapSize.height = 1024;
 spotlight2.shadow.camera.near = 0.5;
 spotlight2.shadow.camera.far = 60;
 spotlight2.shadow.camera.fov = 20;
-//scene.add( spotlight2 );
+scene.add( spotlight2 );
 
 //Create a SpotLight and turn on shadows for the light
-const spotlight3 = new THREE.SpotLight( 0xffffff , 0.8);
+const spotlight3 = new THREE.SpotLight( 0xffffff , 0.5);
 spotlight3.position.set( 0, -32, 20 );
 spotlight3.castShadow = true; // default false
 
@@ -78,7 +79,7 @@ spotlight3.shadow.mapSize.height = 1024;
 spotlight3.shadow.camera.near = 0.5;
 spotlight3.shadow.camera.far = 60;
 spotlight3.shadow.camera.fov = 20;
-//scene.add( spotlight3 );
+scene.add( spotlight3 );
 
 
 
@@ -128,6 +129,17 @@ box.receiveShadow = false; //default
 box.position.z = 10
 scene.add( box );
 
+const loader2 = new GLTFLoader();
+loader2.load('textures/Ankit.glb', function(glb){
+    console.log(glb);
+    const root = glb.scene;
+    root.position.set(0,0,5);
+	root.scale.set(5,5,5);
+    root.rotateX(90);
+    root.castShadow = true;
+    root.receiveShadow = true;
+    //scene.add(root);
+})
 
 
 //Create a helper for the shadow camera (optional)
@@ -153,6 +165,8 @@ controls.update();
 
 function animate() {
 	requestAnimationFrame( animate );
+
+    //loader2.root.rotateX(0.1)
 
     box.rotateX(0.01)
     box.rotateY(0.01)
