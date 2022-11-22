@@ -128,10 +128,10 @@ scene.add( palco );
 
 
 const geometry = new THREE.TorusKnotGeometry( 10, 3, 300, 20,2,3 );
-const material = new THREE.MeshBasicMaterial( { 
+const material = new THREE.MeshStandardMaterial( { 
     color: 0x049ef4,
     emissive:0x000000,
-    metalness: 1,
+    metalness: 0.5,
     roughness: 0
 });
 const torusKnot = new THREE.Mesh( geometry, material );
